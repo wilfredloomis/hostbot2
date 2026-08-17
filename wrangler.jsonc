@@ -1,0 +1,32 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aryanispe-bot-host",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-17",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "R2_ACCOUNT_ID": "replace-with-your-cloudflare-account-id",
+    "R2_BUCKET_NAME": "aryanispe-bots"
+  },
+  "containers": [
+    {
+      "class_name": "BotHost",
+      "image": "./Dockerfile",
+      "max_instances": 1
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "BOT_HOST",
+        "class_name": "BotHost"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["BotHost"]
+    }
+  ]
+}
